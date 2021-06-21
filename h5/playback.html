@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>回放</title>
+    <link rel="stylesheet" href="../layui/css/layui.css">
+    <link rel="stylesheet" href="./css/basic_back.css">
+    <link rel="stylesheet" href="https://g.alicdn.com/de/prismplayer/2.9.3/skins/default/aliplayer-min.css"/>
+    <script src="./../commonJs/aliplayer-h5-min.js"></script>
+    <script src="../commonJs/jquery-3.2.1.min.js"></script>
+    <script src="./../commonJs/flexible.js"></script>
+    <script src="../layui/layui.js"></script>
+    <script src="./js/sha.js"></script>
+    <script src="./js/jweixin-1.6.0.js"></script>
+</head>
+
+<body>
+    <div id="play">
+        <div id="videoBox" class="prism-player">
+        </div>
+        <div class="videoInfo">
+            <p class="describe"></p>
+            <p class="viewNum">
+                <span class="showTime"></span>
+                <span class="showNum"></span>
+                <img src="./image/video_down.png" alt="" id="video_down">
+            </p>
+        </div>
+
+        <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+            <ul class="layui-tab-title">
+                <li class="layui-this">评论</li>
+                <li>精选</li>
+            </ul>
+            <div class="layui-tab-content">
+                <div class="layui-tab-item layui-show">
+                    <div id="chat">
+                        <div class="chatBox">
+                            
+                        </div>
+                        <div class="sendBox">
+                            <p class="sendInput">
+                                <input type="text" class="messageInput" placeholder="说点什么吧"><span id="send-btn">发送</span>
+                            </p>
+                            <p class="support">Cube.vip 提供技术支持</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-tab-item">
+                    <div class="playBack">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="shade_tier"></div>
+        <div id="email_dialog">
+            <p class="email_title">请提供您的邮箱</p>
+            <p class="email_info">视频下载码将发送至您的邮箱<br />请注意查收</p>
+            <input type="text" id="email_input" placeholder="请输入您的邮箱地址">
+            <p id="email_hint"></p>
+            <div class="email_lineTop"></div>
+            <div class="email_lineBom"></div>
+            <div class="email_btn">
+                <p id="email_close">取消</p>
+                <p id="email_confirm">提交</p>
+            </div>
+        </div>
+        <div id="email_flag"></div>
+    </div>
+
+    <script>
+
+        let data = ''
+        var infoData = []
+        var userInfoSrc= ''
+        var userInfo = [1,2]
+        let event_uri_key = ''
+        let videoName = ''
+        var videoJs = ''
+        if(sessionStorage.getItem('cubeInfo')){
+            userInfoSrc= sessionStorage.getItem('cubeInfo').split("&")
+            userInfoSrc.forEach(item => {
+                userInfo.push(item.split("="))
+            })
+
+            data = window.location.search.substring(1).split("&")
+            data.forEach(item => {
+                infoData.push(item.split("="))
+            })
+            event_uri_key = infoData[2][1]
+        }else {
+            window.location.href='http://test.cubee.vip/h5/wxminlogin.html' + window.location.search
+        }
+        $(function () {
+            layui.use(['element'], function () {
+                var element = layui.element;
+                layui.element.init();
+            }); 
+
+            // 获取观看量
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                async: false,
+                url: "http://test.cubee.vip/video_editing/h5_video_number_clicks/",
+                data:{
+                    video_id:infoData[0][1]
+                },
+                success:function(res){
+                    if(res.msg==='success'){
+                        $('.showNum').text(res.data.video_views+'人观看')
+                    }
+                }
+            })
+            
+            
+            // 获取视频url
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                async: false,
+                url: "http://test.cubee.vip/video/h5_video_code_to_uri/",
+                data:{
+                    event_uri_key:event_uri_key,
+                    video_id:infoData[0][1]
+                },
+                success:function(res){
+                    if(res.msg==='success'){
+                        $('.showTime').text(res.data.datetime)
+                        videoName = res.data.video_profile
+                        $('.describe').text(res.data.video_profile)
+                        if(res.data.video_download){
+                            $('#video_down').show()
+                        }
+                        // 判断h5模板
+                        if(res.data.h5_url===1){
+                            var link = document.createElement("link");
+                            link.type = "text/css";
+                            link.rel = "stylesheet";
+                            link.href = './css/default_back.css';
+                            document.getElementsByTagName("head")[0].appendChild(link)
+                        } else if(res.data.h5_url===2) {
+                            var link = document.createElement("link");
+                            link.type = "text/css";
+                            link.rel = "stylesheet";
+                            link.href = './css/sports_back.css';
+                            document.getElementsByTagName("head")[0].appendChild(link);
+                        }
+                        videoJs = new Aliplayer({
+                            "id": "videoBox",
+                            "source": res.data.video_rui,
+                            "width":'10rem',
+                            "height":'5.625rem',
+                            "autoplay": true,
+                            "isLive": false,
+                            "rePlay": false,
+                            "playsinline": true,
+                            "preload": true,
+                            "controlBarVisibility": "click",
+                            "useH5Prism": true,
+                            "skinLayout": [
+                                {
+                                    "name": "bigPlayButton",
+                                    "align": "cc",
+                                },
+                                {
+                                    "name": "H5Loading",
+                                    "align": "cc"
+                                },
+                                {
+                                    "name": "errorDisplay",
+                                    "align": "tlabs",
+                                    "x": 0,
+                                    "y": 0
+                                },
+                                {
+                                    "name": "infoDisplay"
+                                },
+                                {
+                                    "name": "tooltip",
+                                    "align": "blabs",
+                                    "x": 0,
+                                    "y": 56
+                                },
+                                {
+                                    "name": "thumbnail"
+                                },
+                                {
+                                    "name": "controlBar",
+                                    "align": "blabs",
+                                    "x": 0,
+                                    "y": 0,
+                                    "children": [
+                                        {
+                                            "name": "progress",
+                                            "align": "blabs",
+                                            "x": 0,
+                                            "y": 44
+                                        },
+                                        {
+                                            "name": "playButton",
+                                            "align": "tl",
+                                            "x": 15,
+                                            "y": 12
+                                        },
+                                        {
+                                            "name": "timeDisplay",
+                                            "align": "tl",
+                                            "x": 10,
+                                            "y": 7
+                                        },
+                                        {
+                                            "name": "subtitle",
+                                            "align": "tr",
+                                            "x": 15,
+                                            "y": 12
+                                        },
+                                        {
+                                            "name": "setting",
+                                            "align": "tr",
+                                            "x": 15,
+                                            "y": 12
+                                        },
+                                        {
+                                            "name": "fullScreenButton",
+                                            "align": "tr",
+                                            "x": 10,
+                                            "y": 12
+                                        },
+                                        {
+                                            "name": "volume",
+                                            "align": "tr",
+                                            "x": 5,
+                                            "y": 10
+                                        }
+                                    ]
+                                }
+                            ]
+                        })
+                    }
+                }
+            })
+
+            // 下载视频开始
+            $('#video_down').on('click',function(){
+                videoJs.pause()
+                $('#shade_tier').show()
+                $('#email_dialog').show()
+            })
+            // 取消
+            $('#email_close').on('click',function(){
+                close_dom()
+            })
+            $('#email_close').on('touchstart',function(){
+               $(this).css('background','rgba(102,102,102,0.1)')
+           })
+            $('#email_close').on('touchend',function(){
+                $(this).css('background','')
+            })
+            function close_dom(){
+                $('#shade_tier').hide()
+                $('#email_dialog').hide()
+                $('#email_hint').html('')
+                $('#email_input').val('')
+                $('#email_close').css('background','')
+                $('#email_confirm').css('background','')
+            }
+            // 提交
+            $('#email_confirm').on('click',function(){
+                $('#email_hint').html('')
+                if($.trim($('#email_input').val()).length<=0){
+                    $('#email_hint').html('请输入邮箱地址')
+                } else if(!/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test($.trim($('#email_input').val()))){
+                    $('#email_hint').html('邮箱格式不正确')
+                } else {
+                    $.ajax({
+                        url: 'http://test.cubee.vip/video/h5_post_email/',
+                        type: 'POST',
+                        data: {
+                            video_id: infoData[0][1],
+                            email:$.trim($('#email_input').val())
+                        },
+                        success: function (res) {
+                            if (res.msg === 'success') {
+                                close_dom()
+                                $('#email_flag').html('提交成功').show(function () {
+                                    setTimeout(()=>{
+                                        $('#email_flag').html('').hide()
+                                    },2000)
+                                })
+                            } else {
+                                close_dom()
+                                $('#email_flag').html('提交失败').show(function () {
+                                    setTimeout(()=>{
+                                        $('#email_flag').html('').hide()
+                                    },2000)
+                                })
+                            }
+                        }
+                    })
+                }
+            })
+            
+            $('#email_confirm').on('touchstart',function(){
+                $(this).css('background','rgba(102,102,102,0.1)')
+            })
+            $('#email_confirm').on('touchend',function(){
+                $(this).css('background','')
+            })
+            // 下载视频结束
+            // 获取评论列表
+            $.ajax({
+                url: 'http://test.cubee.vip/commenting/h5_comments_show/',
+                type: 'POST',
+                data: {
+                    video_id: infoData[0][1]
+                },
+                success: function (res) {
+                    if (res.msg === 'success') {
+                        var str = ''
+                        res.data.forEach(item => {
+                            str += `
+                            <div class="chatList" id="${item.commend_id}">
+                                <div class="chatImage">
+                                    <img src="${item.wechat_image_url}" alt="">
+                                </div>
+                                <div class="chatInfo">
+                                    <p class="chatName">${item.viewer }</p>
+                                    <p class="chatMessage">${item.comment}</p>
+                                </div>
+                            </div>
+                            `
+                        })
+                        $('.chatBox').append(str)
+                    }
+                }
+            })
+
+            // 发送评论开始
+            $('#send-btn').on('click', function () {
+                if ($.trim($('.messageInput').val()).length > 0) {
+                    $.ajax({
+                        url: 'http://test.cubee.vip/commenting/h5_submit_comments/',
+                        type: 'POST',
+                        data: {
+                            video_id: infoData[0][1],
+                            wechat_nickname: decodeURI(userInfo[0][1]),
+                            comment: $('.messageInput').val()
+                        },
+                        success: function (res) {
+                            if (res.msg === 'success') {
+                                getCommentList()
+                            }
+                        }
+                    })
+                }
+                $('.messageInput').val('')
+
+            })
+            $('.messageInput').on('keypress', function (event) { // 监听回车事件
+                if (event.keyCode == "13") {
+                    $.ajax({
+                        url: 'http://test.cubee.vip/commenting/h5_submit_comments/',
+                        type: 'POST',
+                        data: {
+                            video_id: infoData[0][1],
+                            wechat_nickname: decodeURI(userInfo[0][1]),
+                            comment: $(this).val()
+                        },
+                        success: function (res) {
+                            if (res.msg === 'success') {
+                                getCommentList()
+                            }
+                        }
+                    })
+                    $(this).val('')
+                }
+            })
+
+            function getCommentList() {
+                $.ajax({
+                    url: 'http://test.cubee.vip/commenting/h5_comments_show/',
+                    type: 'POST',
+                    data: {
+                        video_id: infoData[0][1]
+                    },
+                    success: function (res) {
+                        if (res.msg === 'success') {
+                            var str = ''
+                            res.data.forEach(item => {
+
+                                str += `
+                                <div class="chatList" id="${item.commend_id}">
+                                    <div class="chatImage">
+                                        <img src="${item.wechat_image_url}" alt="">
+                                    </div>
+                                    <div class="chatInfo">
+                                        <p class="chatName">${item.viewer }</p>
+                                        <p class="chatMessage">${item.comment}</p>
+                                    </div>
+                                </div>
+                            `
+                            })
+                            $('.chatBox').html(str)
+                            setTimeout(() => {
+                                $('.chatBox').scrollTop($('.chatBox')[0].scrollHeight)
+                            }, 0)
+                        }
+                    }
+                })
+            }
+            // 发送评论结束
+
+             //获取回放视频
+            $.ajax({
+                url: 'http://test.cubee.vip/video/h5_get_event_video/',
+                type: 'GET',
+                data: {
+                    event_uri_key: event_uri_key
+                },
+                success: function (res) {
+                    if (res.msg === 'success') {
+                        var str = ''
+                        res.data.forEach(item => {
+                            str += `<a class="backList" data-id="${item.video_id}" href="http://test.cubee.vip/h5/playback.html?id=${item.video_id}&url=1&video_number_views=${event_uri_key}&video_profile=1&cover=${item.video_description_image}">
+                                <div class="backContent">
+                                    <img src="${item.video_description_image}" onerror="this.src='./image/back-image.png'"  class="backImage">
+                                    <div class="backInfo">
+                                        <div class="backName">
+                                        ${item.video_profile}               
+                                        </div>
+                                        <p class="backTime">
+                                            ${item.datetime}
+                                        </p>
+                                        <p class="backShow">
+                                            ${item.video_number_views}人观看
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                            `
+                        })
+                        if(res.data.length>3) {
+                            str+= '<img src="./image/offer.png"  class="offerImg">'
+                        }
+                        $('.playBack').html(str)
+                    }
+                }
+            })
+
+            var shaStr = ''
+            var timeShare = createTimestamp()
+            function createTimestamp() {
+                return parseInt(new Date().getTime() / 1000);
+            }
+            var srcShare = createNonceStr()
+            function  createNonceStr() {
+                return Math.random().toString(36).substr(2, 15);
+            }
+            $.ajax({
+                url:'http://test.cubee.vip/event/h5_wx_share/',
+                type:'GET',
+                success:function(res){
+                    if(res.msg==='success'){
+
+                    shaStr = sha1('jsapi_ticket='+res.data+'&noncestr='+srcShare+'&timestamp='+timeShare+'&url=http://test.cubee.vip/h5/playback.html'+ window.location.search)
+                    wx.config({
+                            debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                            appId: 'wxfeb6dd6cbf5a390b', // 必填，公众号的唯一标识
+                            timestamp: timeShare, // 必填，生成签名的时间戳
+                            nonceStr: srcShare, // 必填，生成签名的随机串
+                            signature: shaStr, // 必填，签名，见附录1
+                            jsApiList: ['updateTimelineShareData', 'updateAppMessageShareData'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+                        });
+                        
+                        wx.ready(function() {
+                            // 分享到朋友圈
+                            wx.updateTimelineShareData({
+                                title: videoName, // 分享标题
+                                link: 'http://test.cubee.vip/h5/playback.html'+ window.location.search, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                                imgUrl: infoData[4][1], // 分享图标
+                            });
+                            
+                            // 分享给朋友
+                            wx.updateAppMessageShareData({
+                                title: videoName, // 分享标题
+                                desc: videoName, // 分享描述
+                                link: 'http://test.cubee.vip/h5/playback.html'+ window.location.search, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                                imgUrl: infoData[4][1], // 分享图标
+                            });
+                        })
+                    }
+                }
+            })
+        })
+    </script>
+</body>
+
+</html>

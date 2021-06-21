@@ -1,0 +1,78 @@
+.parentMain .container-box {
+  width: 1559px;
+  background-color: #FFFFFF;
+}
+.parentMain .container-box .head {
+  height: 60px;
+  box-sizing: border-box;
+  background-color: #FF914D;
+  font-size: 24px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: #FFFFFF;
+  line-height: 60px;
+  padding: 0 20px;
+}
+.parentMain .container-box .application-list {
+  box-sizing: border-box;
+  padding: 80px 99px 0 99px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.parentMain .container-box .application-list .list_item {
+  width: 610px;
+  height: 153px;
+  margin-bottom: 20px;
+  position: relative;
+  overflow: hidden;
+}
+.parentMain .container-box .application-list .list_item .appImg {
+  width: 610px;
+  height: 153px;
+  vertical-align: top;
+}
+.parentMain .container-box .application-list .list_item .item_introduce {
+  position: absolute;
+  left: 180px;
+  bottom: 14px;
+  font-size: 22px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: #F35E1F;
+  cursor: pointer;
+}
+.parentMain .container-box .application-list .list_item .item_Info {
+  width: 568px;
+  height: 111px;
+  padding: 20px;
+  border: 1px solid #FF914D;
+  border-radius: 10px;
+  background-color: #fff;
+  position: absolute;
+  left: 0;
+  top: 153px;
+}
+.parentMain .container-box .application-list .list_item .item_Info .infoTitle {
+  height: 30px;
+  font-size: 18px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: #333333;
+  line-height: 30px;
+  margin-bottom: 10px;
+}
+.parentMain .container-box .application-list .list_item .item_Info .infoCont {
+  font-size: 16px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: #666666;
+  line-height: 22px;
+}
+.parentMain .container-box .application-list .list_item .item_Info .infoCont img {
+  width: 14px;
+  height: 22px;
+}
+.parentMain .container-box .application-list .imgRight {
+  margin-right: 140px;
+}

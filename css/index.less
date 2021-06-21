@@ -1,0 +1,660 @@
+* {
+    margin: 0;
+}
+
+.container {
+    width: 100%;
+    min-width: 1200px;
+    background: url('./../image/logo-bg.jpeg') no-repeat;
+    background-size: 100% 1080px;
+
+    .topBox {
+        width: 100%;
+        height: 130px;
+        background-color: #fff;
+        position: fixed;
+        top: 0;
+        z-index: 999;
+        box-shadow: 0px 3px 7px 0px rgba(102, 102, 102, 0.1);
+        .topContent {
+            width: 1200px;
+            height: 64px;
+            padding: 33px 0;
+            display: flex;
+            justify-content: space-between;
+            margin: 0 auto;
+
+            .logo {
+                width: 186px;
+                height: 64px;
+            }
+
+            .navBox {
+                width: 500px;
+                height: 64px;
+                line-height: 64px;
+
+                a {
+                    font-size: 20px;
+                    font-family: Source Han Sans CN;
+                    font-weight: 400;
+                    color: #F2591A;
+                    text-decoration: none;
+                    margin-right: 50px;
+                }
+            }
+
+            .loginBox {
+                width: 276px;
+                height: 64px;
+                line-height: 64px;
+
+                .login {
+                    display: inline-block;
+                    text-decoration: none;
+                    width: 128px;
+                    height: 38px;
+                    border-radius: 19px;
+                    font-size: 20px;
+                    font-family: Source Han Sans CN;
+                    font-weight: 400;
+                    color: #F2591A;
+                    line-height: 38px;
+                    text-align: center;
+                }
+
+                .signIn {
+                    display: inline-block;
+                    text-decoration: none;
+                    width: 128px;
+                    height: 38px;
+                    background: #F2591A;
+                    border-radius: 19px;
+                    font-size: 20px;
+                    font-family: Source Han Sans CN;
+                    font-weight: 400;
+                    color: #FFF;
+                    line-height: 36px;
+                    text-align: center;
+                    margin-left: 20px;
+                }
+            }
+        }
+    }
+
+    .logoBox {
+        width:1200px;
+        margin: 0 auto;
+        height: 810px;
+        padding-top: 270px;
+        position: relative;
+            .logoTitle {
+                height: 67px;
+                font-size: 72px;
+                font-family: Source Han Sans CN;
+                font-weight: 400;
+                color: #F2591A;
+                line-height: 30px;
+                margin: 0 0 39px;
+                text-decoration: none;
+            }
+            .logoInfo {
+                height: 96px;
+                font-size: 30px;
+                font-family: Source Han Sans CN;
+                font-weight: 400;
+                color: #FF914D;
+                line-height: 48px;
+                letter-spacing: 5px;
+            }
+            .logoBtn {
+                width: 348px;
+                height: 72px;
+                margin-top: 240px;
+                a {
+                    display: block;
+                    width: 348px;
+                    height: 72px;
+                    background: linear-gradient(180deg, #FFBE58, #FF914D, #F2591A);
+                    border-radius: 36px;
+                    line-height: 72px;
+                    text-align: center;
+                    font-size: 24px;
+                    text-decoration: none;
+                    color: #fff;
+                }
+            }
+            .mobile {
+                width: 700px;
+                border-radius: 20px;
+                // height: 442px;
+                position: absolute;
+                right: 0px;
+                bottom: 158px;
+                outline:none;
+            }
+    }
+
+    .establishBox {
+        width: 1200px;
+        height: 200px;
+        margin: 120px auto 192px;
+        display: flex;
+        justify-content: space-between;
+
+        .establishLeft {
+            width: 545px;
+            height: 200px;
+            font-size: 48px;
+            font-family: Source Han Sans CN;
+            font-weight: 400;
+            color: #333333;
+            line-height: 48px;
+        }
+
+        .establishRight {
+            height: 200px;
+
+            .establishInfo {
+                width: 570px;
+                height: 98px;
+                font-size: 22px;
+                font-family: Source Han Sans CN;
+                font-weight: 400;
+                color: #333333;
+                margin-bottom: 60px;
+                text-align: justify;
+            }
+
+            .establishLink {
+                font-size: 36px;
+                font-family: Source Han Sans CN;
+                font-weight: 400;
+                color: #F2591A;
+                text-decoration: none;
+            }
+        }
+    }
+
+    .majorBox {
+        width: 1200px;
+        height: 508px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+
+        .majorLeft {
+            height: 508px;
+
+            .majorLeftTitle {
+                height: 105px;
+                font-size: 48px;
+                font-family: Source Han Sans CN;
+                font-weight: 400;
+                color: #333333;
+                line-height: 60px;
+            }
+
+            .majorLeftInfo {
+                width: 350px;
+                height: 50px;
+                font-size: 18px;
+                font-family: Source Han Sans CN;
+                font-weight: 400;
+                color: #333333;
+                margin: 40px 0 100px;
+            }
+
+            .majorLeftLink {
+                font-size: 30px;
+                font-family: Source Han Sans CN;
+                font-weight: 400;
+                color: #F2591A;
+                text-decoration: none;
+            }
+        }
+
+        .majorRight {
+            width: 685px;
+            height: 508px;
+        }
+    }
+
+    .exclusiveBox {
+        width: 1200px;
+        height: 504px;
+        margin: 156px auto 159px;
+        display: flex;
+        justify-content: space-between;
+
+        .exclusiveLeft {
+            width: 682px;
+            height: 504px;
+        }
+
+        .exclusiveRight {
+            width: 420px;
+            height: 504px;
+
+            .exclusiveRightTitle {
+                height: 105px;
+                font-size: 48px;
+                font-family: Source Han Sans CN;
+                font-weight: 400;
+                color: #333333;
+                line-height: 60px;
+                margin-top: 25px;
+            }
+
+            .exclusiveRightInfo {
+                width: 420px;
+                height: 50px;
+                font-size: 18px;
+                font-family: Source Han Sans CN;
+                font-weight: 400;
+                color: #333333;
+                margin: 40px 0 100px;
+                text-align: justify;
+            }
+
+            .exclusiveRightLink {
+                font-size: 30px;
+                font-family: Source Han Sans CN;
+                font-weight: 400;
+                color: #F2591A;
+                text-decoration: none;
+            }
+        }
+    }
+
+    .domainBox {
+        width: 1200px;
+        height: 633px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+
+        .domainLeft {
+            height: 633px;
+
+            .domainLeftTitle {
+                height: 105px;
+                font-size: 48px;
+                font-family: Source Han Sans CN;
+                font-weight: 400;
+                color: #333333;
+                line-height: 60px;
+            }
+
+            .domainLeftInfo {
+                width: 323px;
+                height: 50px;
+                font-size: 18px;
+                font-family: Source Han Sans CN;
+                font-weight: 400;
+                color: #333333;
+                margin: 40px 0 100px;
+                text-align: justify;
+            }
+
+            .domainLeftLink {
+                font-size: 30px;
+                font-family: Source Han Sans CN;
+                font-weight: 400;
+                color: #F2591A;
+                text-decoration: none;
+            }
+        }
+
+        .domainRight {
+            width: 712px;
+            height: 633px;
+        }
+    }
+
+    .shopBox {
+        width: 1200px;
+        height: 588px;
+        margin: 220px auto 200px;
+
+        .shopTitle {
+            height: 50px;
+            font-size: 48px;
+            font-family: Source Han Sans CN;
+            font-weight: 500;
+            color: #333333;
+            line-height: 50px;
+            text-align: center;
+        }
+
+        .shopTop {
+            width: 1200px;
+            height: 174px;
+            display: flex;
+            justify-content: space-evenly;
+            margin: 95px 0;
+
+            .shopItem {
+                width: 140px;
+                height: 174px;
+
+                img {
+                    width: 120px;
+                    height: 120px;
+                    margin: 0 10px 20px
+                }
+
+                p {
+                    width: 140px;
+                    height: 34px;
+                    font-size: 34px;
+                    font-family: Source Han Sans CN;
+                    font-weight: 400;
+                    color: #333333;
+                    line-height: 30px;
+                    text-align: center;
+                }
+            }
+        }
+
+        .shopBottom {
+            width: 1200px;
+            height: 174px;
+            display: flex;
+            justify-content: space-between;
+
+            .shopItem {
+                width: 140px;
+                height: 174px;
+
+                img {
+                    width: 120px;
+                    height: 120px;
+                    margin: 0 10px 20px
+                }
+
+                p {
+                    width: 140px;
+                    height: 34px;
+                    font-size: 34px;
+                    font-family: Source Han Sans CN;
+                    font-weight: 400;
+                    color: #333333;
+                    line-height: 30px;
+                    text-align: center;
+                }
+            }
+        }
+    }
+
+    .caseBox {
+        width: 100%;
+        min-width: 1200px;
+        height: 525px;
+
+        .caseTitle {
+            width: 1200px;
+            height: 45px;
+            margin: 0 auto;
+            font-size: 48px;
+            font-family: Source Han Sans CN;
+            font-weight: 500;
+            color: #333333;
+            line-height: 30px;
+            text-align: center;
+            margin-bottom: 100px;
+        }
+
+        #certify {
+            position: relative;
+            width: 1200px;
+            margin: 0 auto;
+
+            .swiper-container {
+                padding-bottom: 60px;
+
+                .swiper-slide {
+                    width: 520px;
+                    height: 408px;
+                    background: #fff;
+                    box-shadow: 0 8px 30px #ddd;
+
+                    img {
+                        width: 520px;
+                        height: 310px;
+                        display: block;
+                    }
+
+                    p {
+                        line-height: 98px;
+                        padding-top: 0;
+                        text-align: center;
+                        color: #636363;
+                        font-size: 1.1em;
+                        margin: 0;
+                    }
+                }
+            }
+
+            .swiper-pagination {
+                width: 100%;
+                bottom: 20px;
+            }
+
+            .swiper-pagination-bullets {
+                .swiper-pagination-bullet {
+                    margin: 0 5px;
+                    border: 3px solid #fff;
+                    background-color: #d5d5d5;
+                    width: 10px;
+                    height: 10px;
+                    opacity: 1;
+                }
+
+                .swiper-pagination-bullet-active {
+                    border: 3px solid #F46932;
+                    background-color: #fff;
+                }
+            }
+
+            .swiper-button-prev {
+                left: 0px;
+                width: 45px;
+                height: 45px;
+                background: url(../image/wm_button_icon.png) no-repeat;
+                background-position: 0 0;
+                background-size: 100%;
+
+                &:hover {
+                    background-position: 0 -46px;
+                    background-size: 100%
+                }
+            }
+
+            .swiper-button-next {
+                right: 0px;
+                width: 45px;
+                height: 45px;
+                background: url(../image/wm_button_icon.png) no-repeat;
+                background-position: 0 -93px;
+                background-size: 100%;
+
+                &:hover {
+                    background-position: 0 -139px;
+                    background-size: 100%
+                }
+            }
+        }
+    }
+
+    .causeBox {
+        width: 1200px;
+        height: 810px;
+        margin: 200px auto 0;
+
+        .causeTitle {
+            height: 34px;
+            font-size: 36px;
+            font-family: Source Han Sans CN;
+            font-weight: 500;
+            color: #333333;
+            line-height: 30px;
+        }
+
+        .causeInfo {
+            width: 700px;
+            height: 234px;
+            font-size: 24px;
+            font-family: Source Han Sans CN;
+            font-weight: 400;
+            color: #333333;
+            margin: 47px 0 20px;
+            text-align: justify;
+        }
+
+        .causeContent {
+            width: 1200px;
+            height: 475px;
+            display: flex;
+            justify-content: space-between;
+
+            a {
+                display: block;
+                font-size: 30px;
+                font-family: Source Han Sans CN;
+                font-weight: 400;
+                color: #F46932;
+                text-decoration: none;
+                margin-top: 80px;
+            }
+
+            img {
+                width: 645px;
+                height: 475px;
+            }
+        }
+    }
+
+    .cooperationBox {
+        width: 1200px;
+        height: 226px;
+        margin: 0 auto;
+
+        .cooperationContent {
+            width: 1200px;
+            height: 146px;
+            display: flex;
+            justify-content: space-between;
+
+            img {
+                width: 278px;
+                height: 146px;
+            }
+        }
+
+        .cooperationTitle {
+            width: 1200px;
+            height: 34px;
+            font-size: 36px;
+            font-family: Source Han Sans CN;
+            font-weight: 400;
+            color: #F46932;
+            text-align: center;
+            margin-top: 46px;
+            line-height: 30px;
+        }
+    }
+
+    .stepBox {
+        width: 100%;
+        min-width: 1200px;
+        height: 698px;
+        background: #122a3e;
+        // margin-top: 95px;
+
+        .stepContent {
+            width: 1200px;
+            height: 518px;
+            margin: 0 auto;
+            position: relative;
+            padding-top: 180px;
+
+            .stepTitle {
+                width: 600px;
+                font-size: 36px;
+                font-family: Source Han Sans CN;
+                font-weight: 500;
+                color: #FFF;
+                line-height: 30px;
+                margin-bottom: 70px;
+            }
+
+            .stepItem {
+                width: 600px;
+                height: 30px;
+                font-size: 24px;
+                font-family: Source Han Sans CN;
+                font-weight: 400;
+                color: #FFF;
+                line-height: 30px;
+                margin-bottom: 30px;
+            }
+            .infoData {
+                width: 520px;
+                height: 518px;
+                position: absolute;
+                right: 0;
+                top:180px;
+                .infoTitle {
+                    margin-bottom: 70px;
+                    height: 34px;
+                    font-size: 36px;
+                    font-family: Source Han Sans CN;
+                    font-weight: 500;
+                    color: #FFF;
+                }
+                .infoItem { 
+                    height: 30px;
+                    font-size: 24px;
+                    font-family: Source Han Sans CN;
+                    font-weight: 400;
+                    color: #FFF;
+                    line-height: 30px;
+                    margin-bottom: 30px;
+
+                }
+            }
+        }
+    }
+
+    .infoBox {
+        width: 100%;
+        min-width: 1200px;
+        height: 30px;
+        padding: 10px 0;
+
+        .beian {
+            width: 1200px;
+            height: 30px;
+            line-height: 30px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            a {
+                color: #333;
+                text-decoration: none;
+                font-size: 14px;
+                &:hover {
+                    color: #666;
+                }
+                margin: 0 5px;
+            }
+            img {
+                width: 18px;
+                height: 18px;
+            }
+        }
+    }
+}
